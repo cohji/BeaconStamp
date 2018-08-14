@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Config
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary">UUID:</ion-label>
+      <ion-input type="text" maxlength="32" [(ngModel)]="input.uuid"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="restart()" float-right>SET</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
