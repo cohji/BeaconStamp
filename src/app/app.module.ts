@@ -12,7 +12,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { IBeacon } from '@ionic-native/ibeacon';
+// import { IBeacon } from '@ionic-native/ibeacon';
+import { BleProvider } from '../providers/ble/ble';
 
 @NgModule({
   declarations: [
@@ -37,8 +38,8 @@ import { IBeacon } from '@ionic-native/ibeacon';
   providers: [
     StatusBar,
     SplashScreen,
-    IBeacon,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    BleProvider
   ]
 })
 export class AppModule {}
