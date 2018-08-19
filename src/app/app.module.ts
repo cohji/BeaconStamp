@@ -14,6 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // import { IBeacon } from '@ionic-native/ibeacon';
 import { BleProvider } from '../providers/ble/ble';
+import { FileProvider } from '../providers/file/file';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BleProvider } from '../providers/ble/ble';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BleProvider
+    BleProvider,
+    FileProvider
   ]
 })
 export class AppModule {}
