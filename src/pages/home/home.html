@@ -1,11 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Beacon Stamp List</ion-title>
+    <ion-title>Main</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
   <p>
     This starter project comes with simple tabs-based layout for apps
     that are going to primarily use a Tabbed UI.
@@ -14,18 +13,11 @@
     Take a look at the <code>src/pages/</code> directory to add or change tabs,
     update any existing page or create new pages.
   </p>
+  <button ion-button (click)="start()" [disabled]="isstarted" float-right>START</button>
+  <button ion-button (click)="stop()" [disabled]="!isstarted" float-right>STOP</button>
   <ion-list>
-    <ion-item>タイトル1</ion-item>
-    <ion-item>タイトル2</ion-item>
-    <ion-item>タイトル3</ion-item>
-    <ion-item>タイトル4</ion-item>
-    <ion-item>タイトル5</ion-item>
-    <ion-item>タイトル6</ion-item>
-    <ion-item>タイトル7</ion-item>
-    <ion-item>タイトル8</ion-item>
-    <ion-item>タイトル9</ion-item>
-    <ion-item>タイトル1</ion-item>
-    <ion-item>タイトル1</ion-item>
-    <ion-item>タイトル1</ion-item>
+    <ion-item *ngFor="let d of data">
+      {{d.date}} {{d.start}} {{d.end}}
+    </ion-item>
   </ion-list>
 </ion-content>

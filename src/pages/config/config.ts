@@ -10,7 +10,6 @@ import { FileIO } from '../../app/fileio';
   templateUrl: 'config.html'
 })
 export class ConfigPage {
-  // input: { uuid: string} = { uuid: 'B9407F30F5F8466EAFF925556B57FE6D'};
   input: { uuid: string} = { uuid: ''};
   ble: Ble;
   configFile: FileIO;
