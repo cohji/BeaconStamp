@@ -1,10 +1,11 @@
 import { IBeacon, Region } from '@ionic-native/ibeacon';
 
 export class Ble {
-  delegate:any;
-  region:Region;
-  isStarted: boolean = false;
-  ibeacon: IBeacon = new IBeacon();
+  private delegate:any;
+  private region:Region;
+  public isStarted: boolean = false;
+  private ibeacon: IBeacon = new IBeacon();
+  public uuid: string;
 
   init(initCallback: (isStarted: boolean) => void, enterCallback: () => void, exitCallback: () => void) {
     console.log("init");
@@ -18,7 +19,7 @@ export class Ble {
           console.log("region.length == 0")
           this.isStarted = false;
           this.initializeProc(enterCallback, exitCallback);
-        } else {
+        } else { // aready initialized
           console.log("region.length != 0")
           this.isStarted = true;
         }
@@ -50,14 +51,15 @@ export class Ble {
     );
   }
 
-  start(uuid, callback: () => void){
+  start(callback: () => void){
     console.log("start");
 
     if(this.isStarted == true) {
       console.log("isStarted == true");
       return;
     }
-    var prop = this.getProperty(uuid);
+    console.log("uuid: " + this.uuid);
+    var prop = this.getProperty(this.uuid);
 
     prop.ibeacon.startMonitoringForRegion(prop.region).then( 
       () => {
@@ -72,7 +74,7 @@ export class Ble {
 
   }
 
-  stop(uuid, callback: () => void){
+  stop(callback: () => void){
     console.log("stop");
 
     this.ibeacon.getMonitoredRegions()
@@ -91,7 +93,7 @@ export class Ble {
       return;
     }
 
-    var prop = this.getProperty(uuid);
+    var prop = this.getProperty(this.uuid);
 
     prop.ibeacon.stopMonitoringForRegion(prop.region).then(
       () => {
@@ -106,10 +108,10 @@ export class Ble {
     )
   }
 
-  restart(uuid: string) {
-    console.log("uuid:" + uuid);
-    this.stop(uuid, () => {
-        this.start(uuid, () => {});
+  restart() {
+    console.log("uuid:" + this.uuid);
+    this.stop(() => {
+        this.start(() => {});
       }
     );
   }

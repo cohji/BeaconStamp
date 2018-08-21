@@ -10,11 +10,15 @@ import { FileIO } from '../../app/fileio';
   templateUrl: 'config.html'
 })
 export class ConfigPage {
-  input: { uuid: string} = { uuid: ''};
-  ble: Ble;
-  configFile: FileIO;
+  public input: { uuid: string} = { uuid: ''};
+  private ble: Ble;
+  private configFile: FileIO;
 
   constructor(public navCtrl: NavController, private bleProvider: BleProvider, private fileProvider: FileProvider) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ConfigPage');
     this.init();
   }
 
@@ -30,7 +34,8 @@ export class ConfigPage {
 
   set() {
     console.log("set");
-    this.ble.restart(this.input.uuid);
+    this.ble.uuid = this.input.uuid;
+    this.ble.restart();
     this.configFile.write(JSON.stringify({ uuid: this.input.uuid }), 
     () => {
       this.configFile.read(text=>{

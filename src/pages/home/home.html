@@ -13,8 +13,8 @@
     Take a look at the <code>src/pages/</code> directory to add or change tabs,
     update any existing page or create new pages.
   </p>
-  <button ion-button (click)="start()" [disabled]="isstarted" float-right>START</button>
-  <button ion-button (click)="stop()" [disabled]="!isstarted" float-right>STOP</button>
+  <button ion-button (click)="start()" [disabled]="isStarted" float-right>START</button>
+  <button ion-button (click)="stop()" [disabled]="!isStarted" float-right>STOP</button>
   <ion-list>
     <ion-item *ngFor="let d of data">
       {{d.date}} {{d.start}} {{d.end}}

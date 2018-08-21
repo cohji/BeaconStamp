@@ -4,86 +4,101 @@ import { Ble } from '../../app/ble';
 import { BleProvider } from '../../providers/ble/ble';
 import { FileProvider } from '../../providers/file/file';
 import { FileIO } from '../../app/fileio';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  ble: Ble;
-  configFile: FileIO;
-  dataFile: FileIO;
-  isstarted: boolean = false;
-  uuid: string = '';
-  data = [];
+  private ble: Ble;
+  private dataFile: FileIO;
+  private configFile: FileIO;
+  public isStarted: boolean = false;
+  public data = []
 
   constructor(public navCtrl: NavController, private bleProvider: BleProvider, private fileProvider: FileProvider) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
+    this.init();
+  }
+
+  init() {
     console.log("init");
+    this.ble = this.bleProvider.getBle();
+    this.ble.init(
+      (isStarted: boolean) => {
+        console.log("isStarted: " + isStarted);
+        this.isStarted = this.ble.isStarted;
+      }, 
+      () => {
+        console.log("enter callback is called");
+        var now = moment();
+        var oprnDate = now.format("YYYY-MM-DD");
+        var ditectTime = now.format("HH-mm-ss");
+        var addData = { date: oprnDate, start: ditectTime, end: 'enter' }
+        if(!this.dataFile) {
+          this.dataFile = this.fileProvider.getDataFile();
+          this.dataFile.init(text => {
+            this.data = JSON.parse(text);
+            this.data.push(addData);
+            this.dataFile.write(JSON.stringify(this.data), () => {}, false);
+          });
+        } else {
+          this.data.push(addData);
+          this.dataFile.write(JSON.stringify(this.data), () => {}, false);
+        }
+      },
+      () => {
+        console.log("exit callback is called");
+        var now = moment();
+        var oprnDate = now.format("YYYY-MM-DD");
+        var ditectTime = now.format("HH-mm-ss");
+        var addData = { date: oprnDate, start: ditectTime, end: 'exit' }
+        if(!this.dataFile) {
+          this.dataFile = this.fileProvider.getDataFile();
+          this.dataFile.init(text => {
+            this.data = JSON.parse(text);
+            this.data.push(addData);
+            this.dataFile.write(JSON.stringify(this.data), () => {}, false);
+          });
+        } else {
+          this.data.push(addData);
+          this.dataFile.write(JSON.stringify(this.data), () => {}, false);
+        }
+      }
+    );
+
+    this.dataFile = this.fileProvider.getDataFile();
+    this.dataFile.init(text => {
+      console.log("text: " + text);
+      this.data = JSON.parse(text);
+    })
     this.configFile = this.fileProvider.getConfigFile();
     this.configFile.init(text => {
-      console.log("config text: " + text);
-      this.uuid = JSON.parse(text).uuid
-      this.dataFile = this.fileProvider.getDataFile();
-      this.dataFile.init(text => {
-        console.log("data text: " + text);
-        this.data = JSON.parse(text);
-        console.log("data: " + JSON.stringify(this.data));
-        this.ble = this.bleProvider.getBle();
-        this.ble.init(
-          (isStarted: boolean) => {
-            console.log("isStarted: " + isStarted);
-            this.isstarted = isStarted;
-          }, 
-          () => {
-            console.log("enter callback is called");
-            var addData = { date: 'test1', start: 'test1', end: 'test1' }
-            if(!this.dataFile) {
-              this.dataFile = this.fileProvider.getDataFile();
-              this.dataFile.init(text => {
-                this.data = JSON.parse(text);
-                this.data.push(addData);
-                this.dataFile.write(JSON.stringify(this.data), () => {}, false);
-              });
-            } else {
-              this.data.push(addData);
-              this.dataFile.write(JSON.stringify(this.data), () => {}, false);
-            }
-          },
-          () => {
-            console.log("exit callback is called");
-            var addData = { date: 'test2', start: 'test2', end: 'test2' }
-            if(!this.dataFile) {
-              this.dataFile = this.fileProvider.getDataFile();
-              this.dataFile.init(text => {
-                this.data = JSON.parse(text);
-                this.data.push(addData);
-                this.dataFile.write(JSON.stringify(this.data), () => {}, false);
-              });
-            } else {
-              this.data.push(addData);
-              this.dataFile.write(JSON.stringify(this.data), () => {}, false);
-            }
-          }
-        );
-      })
+      console.log("text: " + text);
+      this.ble.uuid = JSON.parse(text).uuid
     })
   }
 
   start() {
-    if(this.isstarted) {
+    if(this.isStarted) {
       return
     }
-    this.ble.start(this.uuid, () => {
-      this.isstarted = true;
+    this.ble.start(() => {
+      this.isStarted = true;
     })
   }
 
   stop() {
-    if(!this.isstarted) {
+    if(!this.isStarted) {
       return
     }
-    this.ble.stop(this.uuid, () => {
-      this.isstarted = false;
+    this.ble.stop(() => {
+      this.isStarted = false;
     })
   }
 
