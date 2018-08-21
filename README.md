@@ -19,6 +19,10 @@ ionic cordova plugin add cordova-plugin-statusbar
 npm install --save @ionic-native/status-bar
 ~~~
 
+~~~
+npm install moment --save
+~~~
+
 ### For Android
 ~~~
 ionic cordova run android --device
@@ -26,5 +30,5 @@ ionic cordova run android --device
 
 ### For iOS
 ~~~
-TBD
+ionic cordova build ios
 ~~~
