@@ -16,7 +16,7 @@ export class HomePage {
   private dataFile: FileIO;
   private configFile: FileIO;
   public isStarted: boolean = false;
-  public data = []
+  public data = [];
 
   constructor(public navCtrl: NavController, private bleProvider: BleProvider, private fileProvider: FileProvider) {
   }

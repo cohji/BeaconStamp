@@ -10,5 +10,7 @@ export class ContactPage {
   constructor(public navCtrl: NavController) {
 
   }
-
+  ngOnInit() {
+    console.log('ngOnInit ContactPage');
+  }
 }

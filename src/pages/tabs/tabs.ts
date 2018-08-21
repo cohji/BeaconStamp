@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
 import { ConfigPage } from '../config/config';
 import { ContactPage } from '../contact/contact';
@@ -13,7 +14,7 @@ export class TabsPage {
   tab2Root = ConfigPage;
   tab3Root = ContactPage;
 
-  constructor() {
-
+  constructor(public navCtrl: NavController) {
+    this.navCtrl.setRoot(this.tab1Root);
   }
 }
