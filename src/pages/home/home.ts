@@ -21,8 +21,8 @@ export class HomePage {
   constructor(public navCtrl: NavController, private bleProvider: BleProvider, private fileProvider: FileProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+  ngOnInit() {
+    console.log('ngOnInit HomePage');
     this.init();
   }
 

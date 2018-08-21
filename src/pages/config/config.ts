@@ -17,8 +17,8 @@ export class ConfigPage {
   constructor(public navCtrl: NavController, private bleProvider: BleProvider, private fileProvider: FileProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConfigPage');
+  ngOnInit() {
+    console.log('ngOnInit ConfigPage');
     this.init();
   }
 
