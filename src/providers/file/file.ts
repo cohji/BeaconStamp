@@ -9,7 +9,8 @@ import { FileIO } from '../../app/fileio';
 */
 @Injectable()
 export class FileProvider {
-  dataInit = [{ date: 'DATE', start: 'START', end: 'END' }];
+  // dataInit = [{ date: 'DATE', start: 'START', end: 'END' }];
+  dataInit = [];
   configInit = { uuid: 'B9407F30F5F8466EAFF925556B57FE6D' }
   private fileIoData:FileIO = new FileIO('data.txt', this.dataInit);
   private fileIoConfig:FileIO = new FileIO('config.txt', this.configInit);

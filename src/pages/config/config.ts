@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Ble } from '../../app/ble';
 import { BleProvider } from '../../providers/ble/ble';
@@ -9,7 +9,7 @@ import { FileIO } from '../../app/fileio';
   selector: 'page-config',
   templateUrl: 'config.html'
 })
-export class ConfigPage {
+export class ConfigPage implements OnInit {
   public input: { uuid: string} = { uuid: ''};
   private ble: Ble;
   private configFile: FileIO;

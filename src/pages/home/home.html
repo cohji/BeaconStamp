@@ -5,19 +5,23 @@
 </ion-header>
 
 <ion-content padding>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
-  <button ion-button (click)="start()" [disabled]="isStarted" float-right>START</button>
   <button ion-button (click)="stop()" [disabled]="!isStarted" float-right>STOP</button>
-  <ion-list>
-    <ion-item *ngFor="let d of data">
-      {{d.date}} {{d.start}} {{d.end}}
-    </ion-item>
-  </ion-list>
+  <button ion-button (click)="start()" [disabled]="isStarted" float-right>START</button>
+
+  <ion-grid>
+    <ion-row class="row header">
+      <ion-col class="col" col-6>DATE</ion-col>
+      <ion-col class="col" col-2>START</ion-col>
+      <ion-col class="col" col-2>END</ion-col>
+      <ion-col class="col" col-2></ion-col>
+    </ion-row>
+    <ion-row class="row" *ngFor="let d of data | orderByPipe:'date'" style="font-size:small" align-items-center >
+      <ion-col class="col" col-6 style="text-align: left; height: 100%; ">{{d.date}} (<span [ngStyle]="d.style">{{d.week}}</span>)</ion-col>
+      <ion-col class="col" col-2 style="text-align: center; height: 100%; ">{{d.start}}</ion-col>
+      <ion-col class="col" col-2 style="text-align: center; height: 100%; ">{{d.end}}</ion-col>
+      <ion-col class="col" col-2 style="text-align: right; height: 100%; ">
+          <button class="icon-button" ion-button (click)="edit_data()">Edit</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

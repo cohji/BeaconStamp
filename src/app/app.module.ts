@@ -16,13 +16,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BleProvider } from '../providers/ble/ble';
 import { FileProvider } from '../providers/file/file';
 
+import { OrderByPipe } from './orderby.pipe';
+
 @NgModule({
   declarations: [
     MyApp,
     ConfigPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,
