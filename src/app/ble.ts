@@ -9,9 +9,9 @@ export class Ble {
 
   init(initCallback: (isStarted: boolean) => void, enterCallback: () => void, exitCallback: () => void) {
     console.log("init");
-    this.ibeacon.requestAlwaysAuthorization()
-    this.ibeacon.requestWhenInUseAuthorization()
-    this.ibeacon.getMonitoredRegions()
+    this.ibeacon.requestAlwaysAuthorization(); //OK
+    // this.ibeacon.requestWhenInUseAuthorization(); //OK
+    this.ibeacon.getMonitoredRegions() //OK
     .then(
       region => {
         console.log("region: " + JSON.stringify(region))

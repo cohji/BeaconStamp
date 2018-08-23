@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { Ble } from '../../app/ble';
 import { BleProvider } from '../../providers/ble/ble';
 import { FileProvider } from '../../providers/file/file';
@@ -18,12 +18,14 @@ export class HomePage implements OnInit {
   public isStarted: boolean = false;
   public data = [];
 
-  constructor(public navCtrl: NavController, private bleProvider: BleProvider, private fileProvider: FileProvider) {
+  constructor(public navCtrl: NavController, private readonly platform: Platform, private bleProvider: BleProvider, private fileProvider: FileProvider) {
   }
 
   ngOnInit() {
-    console.log('ngOnInit HomePage');
-    this.init();
+    console.log("ngOnInit");
+    this.platform.ready().then(() => {
+      this.init();
+    });
   }
 
   init() {

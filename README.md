@@ -23,12 +23,30 @@ npm install --save @ionic-native/status-bar
 npm install moment --save
 ~~~
 
-### For Android
+~~~
+ionic cordova plugin add cordova-plugin-local-notification
+npm install --save @ionic-native/local-notifications
+~~~
+
+### Build Project
+
+#### Android
 ~~~
 ionic cordova run android --device
 ~~~
 
-### For iOS
+#### iOS
 ~~~
 ionic cordova build ios
 ~~~
+
+## Issue
+
+  - IOS background problem #123
+
+    https://github.com/petermetz/cordova-plugin-ibeacon/issues/123
+    
+  - iOS background monitoring when app is killed #53
+
+    https://github.com/petermetz/cordova-plugin-ibeacon/issues/53
+  
